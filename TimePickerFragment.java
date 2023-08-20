@@ -1,4 +1,4 @@
-package com.pilling.kakaologin;
+package com.pilling.app;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;

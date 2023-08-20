@@ -1,4 +1,4 @@
-package com.pilling.kakaologin;
+package com.pilling.app;
 
 
 import androidx.activity.result.ActivityResult;
@@ -104,7 +104,7 @@ public class TakePicActivity extends AppCompatActivity {
             }
             if (photoFile != null) {
                 photoURI = FileProvider.getUriForFile(this,
-                        "com.pilling.kakaologin.fileprovider",
+                        "com.pilling.app.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);

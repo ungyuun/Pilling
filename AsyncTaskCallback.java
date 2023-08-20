@@ -1,4 +1,4 @@
-package com.pilling.kakaologin;
+package com.pilling.app;
 
 public interface AsyncTaskCallback {
     void onTaskComplete();

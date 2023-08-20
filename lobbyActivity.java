@@ -1,4 +1,4 @@
-package com.pilling.kakaologin;
+package com.pilling.app;
 
 
 
@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.pilling.kakaologin.GetPrescription;
+import com.pilling.app.GetPrescription;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.appcompat.app.AppCompatActivity;

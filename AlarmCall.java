@@ -1,4 +1,4 @@
-package com.pilling.kakaologin;
+package com.pilling.app;
 
 import android.content.Intent;
 import android.media.Ringtone;

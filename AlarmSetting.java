@@ -1,4 +1,4 @@
-package com.pilling.kakaologin;
+package com.pilling.app;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;

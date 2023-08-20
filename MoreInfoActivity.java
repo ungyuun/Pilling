@@ -1,4 +1,4 @@
-package com.pilling.kakaologin;
+package com.pilling.app;
 
 import android.content.Context;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package com.pilling.kakaologin;
+package com.pilling.app;
 
 import android.app.AlarmManager;
 import android.app.Dialog;
@@ -34,15 +34,15 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class AlarmActivity extends AppCompatActivity implements AlarmAdapter.OnItemClickListener, TimePickerDialog.OnTimeSetListener{
+public class AlarmActivity extends AppCompatActivity implements com.pilling.app.AlarmAdapter.OnItemClickListener, TimePickerDialog.OnTimeSetListener{
     private String kakaoId;
     private ImageButton imageButton;
     private FloatingActionButton fabmain;
     private Integer maxRequestCode;
     Retrofit retrofit;
-    Call<List<AlarmData>> call;
-    static List<AlarmData> dataList;
-    private AlarmAdapter alarmadapter;
+    Call<List<com.pilling.app.AlarmData>> call;
+    static List<com.pilling.app.AlarmData> dataList;
+    private com.pilling.app.AlarmAdapter alarmadapter;
     private RecyclerView recyclerView;
     private Dialog dialog;
     private TextView mTextView;
@@ -60,46 +60,46 @@ public class AlarmActivity extends AppCompatActivity implements AlarmAdapter.OnI
         recyclerView = findViewById(R.id.recyclerView);
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(lobbyActivity.IMAGE_URL)    //베이스 url등록
+                .baseUrl(com.pilling.app.lobbyActivity.IMAGE_URL)    //베이스 url등록
                 .addConverterFactory(GsonConverterFactory.create())    //JSON -> 자바객채변환
                 .build();
-        MyApi myApi = retrofit.create(MyApi.class);
-        call = myApi.getAlarm(RestGet.kakaoId);                        //https://cjw-awdsd.tistory.com/16 restapi 참조게시물
+        com.pilling.app.MyApi myApi = retrofit.create(com.pilling.app.MyApi.class);
+        call = myApi.getAlarm(com.pilling.app.RestGet.kakaoId);                        //https://cjw-awdsd.tistory.com/16 restapi 참조게시물
         //API 호출
-        call.enqueue(new Callback<List<AlarmData>>() {    //비동기로 실행되어 콜백으로 앱으로 알려줌
+        call.enqueue(new Callback<List<com.pilling.app.AlarmData>>() {    //비동기로 실행되어 콜백으로 앱으로 알려줌
 
             @Override
-            public void onResponse(Call<List<AlarmData>> call, Response<List<AlarmData>> response) {
+            public void onResponse(Call<List<com.pilling.app.AlarmData>> call, Response<List<com.pilling.app.AlarmData>> response) {
 
-                List<AlarmData> alarmDataList = response.body();
+                List<com.pilling.app.AlarmData> alarmDataList = response.body();
                 dataList = new ArrayList<>();
 
-                for (AlarmData alarmData : alarmDataList) {                              // 요청으로 반복문에 파일이름을 넣어서 받아옴
+                for (com.pilling.app.AlarmData alarmData : alarmDataList) {                              // 요청으로 반복문에 파일이름을 넣어서 받아옴
 //                    // 각각의 MyData 객체에 대한 처리
                     String hour = alarmData.getHour();
                     String min = alarmData.getMin();
                     Integer requestCode = alarmData.getRequestCode();
                     Boolean act = alarmData.getAct();
-                    dataList.add(new AlarmData(kakaoId,hour,min,requestCode,act));
+                    dataList.add(new com.pilling.app.AlarmData(kakaoId,hour,min,requestCode,act));
                     System.out.println("하워 민 리쿼세 : "+hour+min+requestCode+act);
 
                 }
 
-                alarmadapter = new AlarmAdapter(dataList, getContext(),AlarmActivity.this);
+                alarmadapter = new com.pilling.app.AlarmAdapter(dataList, getContext(),AlarmActivity.this);
                 recyclerView.setAdapter(alarmadapter);
 
             }
             @Override
-            public void onFailure(Call<List<AlarmData>> call, Throwable t) {
+            public void onFailure(Call<List<com.pilling.app.AlarmData>> call, Throwable t) {
                 Log.d("error","통신 실패: " + t.getMessage());
             }
         });
-        Call<AlarmData> call = myApi.getIntegerValue(kakaoId);
-        call.enqueue(new Callback<AlarmData>() {
+        Call<com.pilling.app.AlarmData> call = myApi.getIntegerValue(kakaoId);
+        call.enqueue(new Callback<com.pilling.app.AlarmData>() {
             @Override
-            public void onResponse(Call<AlarmData> call, Response<AlarmData> response) {
+            public void onResponse(Call<com.pilling.app.AlarmData> call, Response<com.pilling.app.AlarmData> response) {
                 if (response.isSuccessful()) {
-                    AlarmData alarmData = response.body();
+                    com.pilling.app.AlarmData alarmData = response.body();
                     if (alarmData != null){
                         Integer requestCode = alarmData.getRequestCode();
                         AlarmActivity.this.maxRequestCode = ++requestCode;
@@ -109,7 +109,7 @@ public class AlarmActivity extends AppCompatActivity implements AlarmAdapter.OnI
                 }
             }
             @Override
-            public void onFailure(Call<AlarmData> call, Throwable t) {
+            public void onFailure(Call<com.pilling.app.AlarmData> call, Throwable t) {
                 Log.d("error","잘못됨"+t.getMessage());
             }
         });
@@ -123,7 +123,7 @@ public class AlarmActivity extends AppCompatActivity implements AlarmAdapter.OnI
                 button.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v){
-                        DialogFragment timePicker = new TimePickerFragment();
+                        DialogFragment timePicker = new com.pilling.app.TimePickerFragment();
                         timePicker.show(getSupportFragmentManager(), "time picker");
                     }
 
@@ -134,7 +134,7 @@ public class AlarmActivity extends AppCompatActivity implements AlarmAdapter.OnI
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent getDrugInfo = new Intent(AlarmActivity.this,RestGet.class);     // restapi 연습 예제
+                Intent getDrugInfo = new Intent(AlarmActivity.this, com.pilling.app.RestGet.class);     // restapi 연습 예제
 
                 getDrugInfo.putExtra("kakaoId",kakaoId);
                 startActivity(getDrugInfo);
@@ -144,7 +144,7 @@ public class AlarmActivity extends AppCompatActivity implements AlarmAdapter.OnI
     }
 
     @Override
-    public void onItemClick(AlarmData item) {
+    public void onItemClick(com.pilling.app.AlarmData item) {
         Integer requestCode = item.getRequestCode();
         dialog = new Dialog(AlarmActivity.this,R.style.Dialog);
         dialog.setContentView(R.layout.alarm_edit_modal);
@@ -153,17 +153,17 @@ public class AlarmActivity extends AppCompatActivity implements AlarmAdapter.OnI
         mTextView =  dialog.findViewById(R.id.textView);
         mTextView.setText(item.getHour()+" : "+item.getMin());
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(lobbyActivity.IMAGE_URL) // API의 기본 URL 설정
+                .baseUrl(com.pilling.app.lobbyActivity.IMAGE_URL) // API의 기본 URL 설정
                 .addConverterFactory(GsonConverterFactory.create()) // Gson 변환기 설정
                 .build();
 
-        MyApi myApi = retrofit.create(MyApi.class);
+        com.pilling.app.MyApi myApi = retrofit.create(com.pilling.app.MyApi.class);
 
         add.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                Intent intent = new Intent(AlarmActivity.this, AlertReceiver.class);
+                Intent intent = new Intent(AlarmActivity.this, com.pilling.app.AlertReceiver.class);
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(AlarmActivity.this,requestCode, intent, PendingIntent.FLAG_MUTABLE | 0);
                 alarmManager.cancel(pendingIntent);
 
@@ -183,7 +183,7 @@ public class AlarmActivity extends AppCompatActivity implements AlarmAdapter.OnI
                     }
                 });
 
-                DialogFragment timePicker = new TimePickerFragment();
+                DialogFragment timePicker = new com.pilling.app.TimePickerFragment();
                 timePicker.show(getSupportFragmentManager(), "time picker");
             }
         });
@@ -192,7 +192,7 @@ public class AlarmActivity extends AppCompatActivity implements AlarmAdapter.OnI
             public void onClick(View v){
 
                 AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                Intent intent = new Intent(AlarmActivity.this, AlertReceiver.class);
+                Intent intent = new Intent(AlarmActivity.this, com.pilling.app.AlertReceiver.class);
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(AlarmActivity.this,requestCode, intent, PendingIntent.FLAG_MUTABLE | 0);
                 alarmManager.cancel(pendingIntent);
 
@@ -241,20 +241,20 @@ public class AlarmActivity extends AppCompatActivity implements AlarmAdapter.OnI
 
     private void startAlarm(Calendar c){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(lobbyActivity.IMAGE_URL) // API의 기본 URL 설정
+                .baseUrl(com.pilling.app.lobbyActivity.IMAGE_URL) // API의 기본 URL 설정
                 .addConverterFactory(GsonConverterFactory.create()) // Gson 변환기 설정
                 .build();
 
-        MyApi myApi = retrofit.create(MyApi.class);
+        com.pilling.app.MyApi myApi = retrofit.create(com.pilling.app.MyApi.class);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(this, AlertReceiver.class);
+        Intent intent = new Intent(this, com.pilling.app.AlertReceiver.class);
         intent.putExtra("calendar", c.getTimeInMillis());
         pendingIntent = PendingIntent.getBroadcast(this, maxRequestCode,
                 intent, PendingIntent.FLAG_MUTABLE | 0);
         String formattedMinute = String.format("%02d", c.get(Calendar.MINUTE));
         Log.d("check","AlarmActivity의 컨텍스트  : "+this);
-        AlarmData requestData = new AlarmData(kakaoId,String.valueOf(c.get(Calendar.HOUR_OF_DAY)),formattedMinute,maxRequestCode,true);
+        com.pilling.app.AlarmData requestData = new com.pilling.app.AlarmData(kakaoId,String.valueOf(c.get(Calendar.HOUR_OF_DAY)),formattedMinute,maxRequestCode,true);
 
         Call<ResponseBody> call = myApi.postAlarm(requestData);
         call.enqueue(new Callback<ResponseBody>() {
@@ -286,7 +286,7 @@ public class AlarmActivity extends AppCompatActivity implements AlarmAdapter.OnI
 
     public void cancelAlarm(Integer thisRequestCode) {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, AlertReceiver.class);
+        Intent intent = new Intent(this, com.pilling.app.AlertReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, thisRequestCode, intent, PendingIntent.FLAG_MUTABLE | 0);
         alarmManager.cancel(pendingIntent);
     }

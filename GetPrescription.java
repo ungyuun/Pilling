@@ -1,4 +1,4 @@
-package com.pilling.kakaologin;
+package com.pilling.app;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
