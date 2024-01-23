@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="350dp"
+    android:layout_height="300dp"
+    >
+
+    <TextView
+        android:id="@+id/modal_prescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="알람 수정"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+
+        />
+
+    <Button
+        android:id="@+id/no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:layout_below="@+id/modal_prescription"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="210dp"
+        android:layout_marginTop="49dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="31dp"
+        android:text="아니오" />
+
+    <Button
+        android:id="@+id/yes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/modal_prescription"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="49dp"
+        android:layout_marginEnd="210dp"
+        android:layout_marginBottom="31dp"
+        android:text="네" />
+
+
+</RelativeLayout>
