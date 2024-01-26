@@ -4,7 +4,7 @@
 
 
 
-<img src="https://github.com/ungyuun/Pilling/assets/95204319/75bb43fe-4e20-4b3a-9833-9d70a3ee35f4" width="20%" align="left"/>
+<img src="https://github.com/ungyuun/Pilling/assets/95204319/75bb43fe-4e20-4b3a-9833-9d70a3ee35f4" width="23%"/>
 
 
 
